@@ -1,10 +1,14 @@
 "use client";
 
 import { useState } from "react";
-import { Bell, Search, User } from "lucide-react";
+import { Bell, Search, User, Menu } from "lucide-react";
 import { useApp } from "@/lib/context";
 
-export function TopNav() {
+interface TopNavProps {
+    onMenuToggle?: () => void;
+}
+
+export function TopNav({ onMenuToggle }: TopNavProps) {
     const { user, logout } = useApp();
     const [showNotifications, setShowNotifications] = useState(false);
     const [showProfileMenu, setShowProfileMenu] = useState(false);
@@ -12,7 +16,13 @@ export function TopNav() {
     return (
         <header className="flex h-16 items-center justify-between border-b border-gray-200 bg-white px-6 relative z-10">
             <div className="flex items-center gap-4">
-                {/* Search bar removed as per request */}
+                {/* Hamburger menu button for mobile */}
+                <button
+                    onClick={onMenuToggle}
+                    className="lg:hidden p-2 rounded-lg hover:bg-gray-100 text-gray-600"
+                >
+                    <Menu className="h-6 w-6" />
+                </button>
             </div>
             <div className="flex items-center gap-4">
                 {/* Notification Dropdown */}
